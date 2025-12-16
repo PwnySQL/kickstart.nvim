@@ -745,6 +745,7 @@ do
     ruff = {},
     -- Python LSP for autocompletion etc (chosen over pyright because pyright requires npm setup)
     jedi_language_server = {},
+    groovyls = {},
     -- Some languages (like rust) have entire language plugins that can be useful:
     --    https://github.com/mrcjkb/rustaceanvim
     --
