@@ -697,7 +697,13 @@ do
   --  See `:help lsp-config` for information about keys and how to configure
   ---@type table<string, vim.lsp.Config>
   local servers = {
-    -- clangd = {},
+    -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/clangd.lua suggests to create a symlink
+    -- to the compile_commands.json to the root of the project, i.e.
+    -- cd path/to/current
+    -- ln -s $(pwd)/build/x64-linux-clang21_1-debug/compile_commands.json $(pwd)
+    clangd = {
+      cmd = { 'clangd', '--header-insertion=never' },
+    },
     -- gopls = { gofumpt = true },
     -- Python formatter and linter (internet says its the fastest)
     ruff = {},
