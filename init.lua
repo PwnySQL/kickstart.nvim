@@ -224,6 +224,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+function ClangFormatFile() end
+
+-- Use clang-format when writing a buffer
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.c', '*.h', '*.cpp', '*.hpp' },
+  group = vim.api.nvim_create_augroup('clang-format', { clear = true }),
+  callback = function()
+    ClangFormatFile()
+  end,
+})
+
 vim.api.nvim_create_user_command('GenCTagsHLib', function()
   vim.api.nvim_command ':! ctags -V --c-kinds=+pxfdev --cpp-kinds=+pxfdev --fields=+iaS -I PARAM_UNUSED $(find "$HOME/halcon/hclib/hclib" $(realpath source/) $(realpath include/) -regex \'.*\\.[ch]\\(pp\\)?\')'
 end, {})
