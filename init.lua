@@ -676,7 +676,13 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/clangd.lua suggests to create a symlink
+        -- to the compile_commands.json to the root of the project, i.e.
+        -- cd path/to/current
+        -- ln -s $(pwd)/build/x64-linux-clang21_1-debug/compile_commands.json $(pwd)
+        clangd = {
+          cmd = { 'clangd', '--header-insertion=never' },
+        },
         -- gopls = {},
         -- Python formatter and linter (internet says its the fastest)
         ruff = {},
