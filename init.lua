@@ -703,6 +703,7 @@ do
     ruff = {},
     -- Python LSP for autocompletion etc (chosen over pyright because pyright requires npm setup)
     jedi_language_server = {},
+    groovyls = {},
     -- rust_analyzer = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
