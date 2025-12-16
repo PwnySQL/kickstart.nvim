@@ -739,7 +739,7 @@ do
   ---@type table<string, vim.lsp.Config>
   local servers = {
     -- clangd = {},
-    gopls = { gofumpt = true },
+    -- gopls = { gofumpt = true },
     -- tsc = {},
     -- Python formatter and linter (internet says its the fastest)
     ruff = {},
