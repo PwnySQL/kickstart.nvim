@@ -632,6 +632,18 @@ require('lazy').setup({
               vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event.buf })
             end, '[T]oggle Inlay [H]ints')
           end
+
+          -- The following code formats the buffer on save.
+          -- Found on https://neovim.io/doc/user/lsp.html#lsp-attach.
+          if not client:supports_method 'textDocument/willSaveWaitUntil' and client:supports_method 'textDocument/formatting' then
+            vim.api.nvim_create_autocmd('BufWritePre', {
+              group = vim.api.nvim_create_augroup('FormatOnSave', { clear = false }),
+              buffer = event.buf,
+              callback = function()
+                vim.lsp.buf.format { bufnr = event.buf, id = client.id, timeout_ms = 1000 }
+              end,
+            })
+          end
         end,
       })
 
@@ -685,7 +697,8 @@ require('lazy').setup({
         -- cd path/to/current
         -- ln -s $(pwd)/build/x64-linux-clang21_1-debug/compile_commands.json $(pwd)
         clangd = {
-          cmd = { 'clangd', '--header-insertion=never' },
+          -- Use the exact version such that clang-format uses the expected formatting rules.
+          cmd = { '/opt/home/buildbot/halcon/toolchains/x64-linux/clang-21.1.4/bin/clangd', '--header-insertion=never' },
         },
         -- gopls = {},
         -- Python formatter and linter (internet says its the fastest)
