@@ -740,9 +740,11 @@ do
   local servers = {
     -- clangd = {},
     gopls = {},
-    -- pyright = {},
     -- tsc = {},
-    --
+    -- Python formatter and linter (internet says its the fastest)
+    ruff = {},
+    -- Python LSP for autocompletion etc (chosen over pyright because pyright requires npm setup)
+    jedi_language_server = {},
     -- Some languages (like rust) have entire language plugins that can be useful:
     --    https://github.com/mrcjkb/rustaceanvim
     --
