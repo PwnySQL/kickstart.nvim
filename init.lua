@@ -699,7 +699,10 @@ do
   local servers = {
     -- clangd = {},
     gopls = {},
-    -- pyright = {},
+    -- Python formatter and linter (internet says its the fastest)
+    ruff = {},
+    -- Python LSP for autocompletion etc (chosen over pyright because pyright requires npm setup)
+    jedi_language_server = {},
     -- rust_analyzer = {},
     --
     -- Some languages (like typescript) have entire language plugins that can be useful:
