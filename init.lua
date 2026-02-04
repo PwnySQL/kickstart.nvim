@@ -828,7 +828,19 @@ do
   -- NOTE: You can also specify plugin using a version range for its git tag.
   --  See `:help vim.version.range()` for more info
   vim.pack.add { { src = gh 'L3MON4D3/LuaSnip', version = vim.version.range '2.*' } }
-  require('luasnip').setup {}
+  require('luasnip').setup {
+    config = function()
+      local ls = require 'luasnip'
+      -- expand or jump into snippet
+      vim.keymap.set({ 'i' }, '<C-K>', function() ls.expand_or_jump() end, { silent = true })
+      -- go back in snippet, J as the opposite of K
+      vim.keymap.set({ 'i' }, '<C-J>', function() ls.jump(-1) end, { silent = true })
+      -- select between choices in a snippet, L for list
+      vim.keymap.set({ 'i', 's' }, '<C-L>', function()
+        if ls.choice_active() then ls.change_choice(1) end
+      end, { silent = true })
+    end,
+  }
 
   -- `friendly-snippets` contains a variety of premade snippets.
   --    See the README about individual language/framework/plugin snippets:
