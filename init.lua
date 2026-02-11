@@ -257,6 +257,15 @@ do
     callback = function() vim.hl.on_yank() end,
   })
 
+  -- Fix indentation settings for c and cpp because guess-indent does not work (see below)
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'c', 'cpp' },
+    callback = function()
+      vim.opt_local.shiftwidth = 2
+      vim.opt_local.tabstop = 2
+    end,
+  })
+
   -- Add command to generate ctags
   vim.api.nvim_create_user_command(
     'GenCTagsHLib',
@@ -358,7 +367,15 @@ do
   -- We first install it from https://github.com/NMAC427/guess-indent.nvim
   -- and then call its `setup()` function to start it with default settings.
   vim.pack.add { gh 'NMAC427/guess-indent.nvim' }
-  require('guess-indent').setup {}
+  require('guess-indent').setup {
+    filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
+      -- Disable for c and cpp because HLib has in some files too many macros, constants,
+      -- and static function prototypes before actual code begins such that guess-indent
+      -- fails to detect the correct values.
+      'c',
+      'cpp',
+    },
+  }
 
   -- Here is a more advanced configuration example that passes options to `gitsigns.nvim`
   --
