@@ -698,7 +698,7 @@ do
   ---@type table<string, vim.lsp.Config>
   local servers = {
     -- clangd = {},
-    gopls = {},
+    gopls = { gofumpt = true },
     -- Python formatter and linter (internet says its the fastest)
     ruff = {},
     -- Python LSP for autocompletion etc (chosen over pyright because pyright requires npm setup)
@@ -806,7 +806,7 @@ do
     formatters_by_ft = {
       -- rust = { 'rustfmt' },
       lua = { 'stylua' },
-      go = { 'gofmt' },
+      go = { 'gofumpt' },
       -- Conform can also run multiple formatters sequentially
       -- python = { "isort", "black" },
       --
