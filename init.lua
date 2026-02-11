@@ -224,6 +224,14 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { 'c', 'cpp' },
+  callback = function()
+    vim.opt_local.shiftwidth = 2
+    vim.opt_local.tabstop = 2
+  end,
+})
+
 vim.api.nvim_create_user_command('GenCTagsHLib', function()
   vim.api.nvim_command ':! ctags -V --c-kinds=+pxfdev --cpp-kinds=+pxfdev --fields=+iaS -I PARAM_UNUSED $(find "$HOME/halcon/hclib/hclib" $(realpath source/) $(realpath include/) -regex \'.*\\.[ch]\\(pp\\)?\')'
 end, {})
@@ -256,7 +264,23 @@ rtp:prepend(lazypath)
 -- NOTE: Here is where you install your plugins.
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
-  'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
+  {
+    -- Detect tabstop and shiftwidth automatically
+    'NMAC427/guess-indent.nvim',
+    config = function()
+      require('guess-indent').setup {
+        filetype_exclude = { -- A list of filetypes for which the auto command gets disabled
+          'netrw',
+          'tutor',
+          -- Disable for c and cpp because HLib has in some files too many macros, constants,
+          -- and static function prototypes before actual code begins such that guess-indent
+          -- fails to detect the correct values.
+          'c',
+          'cpp',
+        },
+      }
+    end,
+  },
 
   -- NOTE: Plugins can also be added by using a table,
   -- with the first argument being the link and the following
