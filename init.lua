@@ -677,7 +677,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {},
+        gopls = { gofumpt = true },
         -- Python formatter and linter (internet says its the fastest)
         ruff = {},
         -- Python LSP for autocompletion etc (chosen over pyright because pyright requires npm setup)
@@ -776,7 +776,7 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
-        go = { 'gofmt' },
+        go = { 'gofumpt' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
