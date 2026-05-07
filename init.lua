@@ -257,17 +257,6 @@ do
     callback = function() vim.hl.on_yank() end,
   })
 
-  function ClangFormatFile() end
-
-  -- Use clang-format when writing a buffer
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = { '*.c', '*.h', '*.cpp', '*.hpp' },
-    group = vim.api.nvim_create_augroup('clang-format', { clear = true }),
-    callback = function()
-      ClangFormatFile()
-    end,
-  })
-
   -- Add command to generate ctags
   vim.api.nvim_create_user_command(
     'GenCTagsHLib',
