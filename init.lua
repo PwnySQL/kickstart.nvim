@@ -662,6 +662,10 @@ do
       --  For example, in C this would take you to the header.
       map('grD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+      -- use "customary" vim tags functionality instead of calling vim.lsp.tagfunc() which defaults to go to
+      -- definition
+      vim.bo[event.buf].tagfunc = ''
+
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
