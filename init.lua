@@ -266,6 +266,16 @@ do
     end,
   })
 
+  -- vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
+  --   pattern = { '*.def' },
+  --   callback = function()
+  --     vim.opt_local.shiftwidth = 2
+  --     vim.opt_local.tabstop = 2
+  --     vim.opt_local.colorcolumn = { 79 }
+  --     vim.opt_local.textwidth = 79
+  --   end,
+  -- })
+
   -- Add command to generate ctags
   vim.api.nvim_create_user_command(
     'GenCTagsHLib',
