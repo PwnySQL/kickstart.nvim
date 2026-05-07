@@ -256,6 +256,15 @@ do
     group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
     callback = function() vim.hl.on_yank() end,
   })
+
+  -- Add command to generate ctags
+  vim.api.nvim_create_user_command(
+    'GenCTagsHLib',
+    function()
+      vim.api.nvim_command ':! ctags -V --c-kinds=+pxfdev --cpp-kinds=+pxfdev --fields=+iaS -I PARAM_UNUSED $(find "$HOME/halcon/hclib/hclib" $(realpath source/) $(realpath include/) -regex \'.*\\.[ch]\\(pp\\)?\')'
+    end,
+    {}
+  )
 end
 
 -- ============================================================
