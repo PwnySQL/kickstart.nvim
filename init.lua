@@ -171,6 +171,11 @@ do
   -- instead raise a dialog asking if you wish to save the current file(s)
   -- See `:help 'confirm'`
   vim.o.confirm = true
+
+  -- Use a bash-like completion: First tab completes as much as possible, second
+  -- tab shows a list of available completions, third and following tabs complete
+  -- without using further keys (standard nvim)
+  vim.o.wildmode = 'longest:list'
 end
 
 -- ============================================================
