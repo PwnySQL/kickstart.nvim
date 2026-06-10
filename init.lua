@@ -531,6 +531,7 @@ do
     gh 'nvim-lua/plenary.nvim',
     gh 'nvim-telescope/telescope.nvim',
     gh 'nvim-telescope/telescope-ui-select.nvim',
+    gh 'jmacadie/telescope-hierarchy.nvim',
   }
   if vim.fn.executable 'make' == 1 then table.insert(telescope_plugins, gh 'nvim-telescope/telescope-fzf-native.nvim') end
 
@@ -556,6 +557,7 @@ do
   -- Enable Telescope extensions if they are installed
   pcall(require('telescope').load_extension, 'fzf')
   pcall(require('telescope').load_extension, 'ui-select')
+  pcall(require('telescope').load_extension, 'hierarchy')
 
   -- See `:help telescope.builtin`
   local builtin = require 'telescope.builtin'
@@ -616,6 +618,18 @@ do
       -- Useful when you're not sure what type a variable is and you want to see
       -- the definition of its *type*, not where it was *defined*.
       vim.keymap.set('n', 'grt', builtin.lsp_type_definitions, { buffer = buf, desc = '[G]oto [T]ype Definition' })
+
+      -- Open the telescope picker (no filtering) with a call hierarchy in tree view.
+      -- See https://github.com/jmacadie/telescope-hierarchy.nvim#usage
+      -- Keys:
+      -- e, l vs c, h expand/collapse current node
+      -- E multi expand node under cursor
+      -- t toggle expanded state
+      -- s switch direction (incoming/outgoing) of node under cursor
+      -- d go to definition of current node (not function call shown)
+      -- Enter go to function call shown
+      vim.keymap.set('n', '<leader>so', '<cmd>Telescope hierarchy outgoing_calls<cr>', { buffer = buf, desc = '[S]earch [O]utgoing Calls' })
+      vim.keymap.set('n', '<leader>si', '<cmd>Telescope hierarchy incoming_calls<cr>', { buffer = buf, desc = '[S]earch [I]utgoing Calls' })
     end,
   })
 
