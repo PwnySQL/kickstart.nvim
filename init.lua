@@ -787,8 +787,12 @@ do
     -- cd path/to/current
     -- ln -s $(pwd)/build/x64-linux-clang21_1-debug/compile_commands.json $(pwd)
     clangd = {
-      -- Use the exact version such that clang-format uses the expected formatting rules.
-      cmd = { '/opt/home/buildbot/halcon/toolchains/x64-linux/clang-21.1.4/bin/clangd', '--header-insertion=never' },
+      cmd = {
+        '/opt/home/buildbot/halcon/toolchains/x64-linux/clang-21.1.4/bin/clangd', -- Use the exact version such that clang-format uses the expected formatting rules.
+        '--header-insertion=never', -- Does not work properly with HALCON's accumulated headers
+        '-j=16', -- Use 16 threads
+        '--pch-storage=memory', -- store precompiled headers in memory rather than on disk
+      },
     },
     -- gopls = { gofumpt = true },
     -- Python formatter and linter (internet says its the fastest)
