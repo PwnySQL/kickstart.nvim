@@ -564,7 +564,20 @@ do
   vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
   vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
   vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+  -- Use Ctrl-Space to fuzzy find in grep results.
   vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+  vim.keymap.set(
+    'n',
+    '<leader>sGC',
+    function() builtin.live_grep { type_filter = 'c', prompt_title = 'Live Grep in C Files' } end,
+    { desc = '[S]earch by [G]rep in [C] files' }
+  )
+  vim.keymap.set(
+    'n',
+    '<leader>sGH',
+    function() builtin.live_grep { search_dirs = { 'source/hlib' }, prompt_title = 'Live Grep in source/hlib/ directory' } end,
+    { desc = '[S]earch by [G]rep in [H]lib source directory' }
+  )
   vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
   vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
   vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
