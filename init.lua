@@ -536,6 +536,29 @@ do
 
   -- ... and there is more!
   --  Check out: https://github.com/nvim-mini/mini.nvim
+
+  vim.pack.add {
+    'https://github.com/sphamba/smear-cursor.nvim',
+  }
+
+  local smear_cursor = require 'smear_cursor'
+  smear_cursor.setup {
+    -- Recommended options for 'faster'
+    opts = { -- Default  Range
+      stiffness = 0.8, -- 0.6      [0, 1]
+      trailing_stiffness = 0.6, -- 0.45     [0, 1]
+      stiffness_insert_mode = 0.7, -- 0.5      [0, 1]
+      trailing_stiffness_insert_mode = 0.7, -- 0.5      [0, 1]
+      damping = 0.95, -- 0.85     [0, 1]
+      damping_insert_mode = 0.95, -- 0.9      [0, 1]
+      distance_stop_animating = 0.5, -- 0.1      > 0
+      -- When experiencing lower frame rates, lowering time interval may help
+      -- time_interval = 7, -- milliseconds  Default: 17
+    },
+  }
+  -- Disable plugin after load to toggle it on in sharing sessions only.
+  smear_cursor.enabled = false
+  vim.keymap.set('n', '<leader>c', function() require('smear_cursor').toggle() end, { desc = 'Toggle Smear [C]ursor' })
 end
 
 -- ============================================================
